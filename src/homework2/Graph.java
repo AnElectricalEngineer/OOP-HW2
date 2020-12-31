@@ -1,6 +1,7 @@
 package homework2;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,10 +11,8 @@ import java.util.Set;
  * which may be connected by edges {E}. Each edge e = (v1,v2) has a direction,
  * which means that the edge (v1,v2) is different from the edge (v2, v1).
  * //TODO ensure that Graph is immutable and explain why in external doc.
- *
  * A Graph cannot have more than one edge which connects a specific node to
- * another - in other words: if e1 = (v1, v2), e2 = (v3, v4), e1 != e2 => (v1
- * != v3) || (v2 != v4) || (v1 != v3 && v2 != v4). //TODO check if makes sense.
+ * another.
  *
  * Each node in a Graph can have multiple children and parents. A child of node
  * v is a node u such that there is an edge FROM v to u. In other words, node
@@ -26,18 +25,20 @@ import java.util.Set;
 public class Graph<N>
 {
 
-    //	//TODO Abstraction Function:
-    //	A GeoFeature is a geographical feature composed of a positive number of
-    //	connected GeoSegments with the same name. The feature begins at
-    //	GeoFeature.getFirst().getP1() (the first point of the first segment in
-    //	the feature). The feature ends at GeoFeature.getLast().getP2() (the
-    //  second point of the last segment in the feature).
+    //	Abstraction Function:
+    //  TODO check immutable
+    //  A Graph is an immutable model which represents a set of points and the
+    //  connections between them. A Graph has a name represented by
+    //  graphName_, and contains a number of nodes held as keys in
+    //  nodesAndEdges_. The edges that connect parent nodes to child nodes are
+    //  represented as sets of child nodes and are the values in
+    //  nodesAndEdges_ that each key (parentNode) is mapped to.
 
-    //	//TODO Representation Invariant:
-    //	For every GeoFeature f, f.name_ != null && 0 <= f.startHeading_ < 360
-    //	&& 0 <= f.endHeading_ < 360 && for all GeoSegments s_i,
-    //	s_i.endPoint == s_i+1.startPoint && for all GeoSegments s
-    //	in a GeoFeature f,	it must hold that s.name_ == f.name_.
+    //	Representation Invariant:
+    //  For every Graph g, g.graphName_ != null && g.graphName_ != "" && each
+    //  node in g != null and each node in g is unique. For each pair of nodes
+    //  n_i, n_j in g, no more than one edge connects n_i to n_j. Each edge
+    //  must be represented by two nodes that exist in the graph.
 
 
     private final Map<N, Set<N>> nodesAndEdges_;
@@ -80,6 +81,11 @@ public class Graph<N>
     public void AddNode(N node)
     {
         checkRep();
+        if(nodesAndEdges_.containsKey(node))
+        {
+            //TODO throw exception
+        }
+        nodesAndEdges_.put(node, new HashSet<>());
         checkRep();
     }
 
@@ -96,6 +102,13 @@ public class Graph<N>
     public void AddEdge(N parentNode, N childNode)
     {
         checkRep();
+        if(!nodesAndEdges_.containsKey(parentNode) ||
+                !(nodesAndEdges_.containsKey(childNode)))
+        {
+            //TODO throw exception, dont need edgealreadyexists like tal
+            // because use of hashset for children (edge) takes care of this.
+        }
+        nodesAndEdges_.get(parentNode).add(childNode);
         checkRep();
     }
 
@@ -155,10 +168,11 @@ public class Graph<N>
 
     //TODO check if need to implement
     /**
-     * Compares the argument with this GeoFeature for equality.
-     * @return o != null && (o instanceof GeoFeature) &&
-     *         (o.geoSegments and this.geoSegments contain
-     *          the same elements in the same order).
+     * Compares the argument with this Graph for equality.
+     * @return o != null && (o instanceof //TODO check if Graph or Graph<N>)
+     * or other &&
+     * (o.nodesAndEdges_ and this.nodesAndEdges_ contain
+     * the same nodes with the same edges).
      **/
     @Override
     public boolean equals(Object o)
@@ -168,10 +182,34 @@ public class Graph<N>
     }
 
     /**
-     * Checks that the representation invariant is maintained.
+     * Checks that the representation invariant is maintained. The
+     * implementation chosen to hold nodes (HashMap) guarantees that nodes are
+     * unique. A Hashmap was also chosen to hold child nodes which guarantees
+     * that edges are unique. Therefore these facets of the representation
+     * invariant are not checked here.
      */
     private void checkRep()
     {
+        assert graphName_ != null : "Null Graph name.";
+
+        //  Use of trim() assures that names of the form "   " are caught.
+        assert !graphName_.trim().isEmpty() : "Empty Graph name.";
+
+        //  Check that no nodes are null
+        for( N node : nodesAndEdges_.keySet())
+        {
+            assert node != null : "Null node.";
+            /*  For each node in the graph, check that each edge connecting
+            that node to a child node points to a child node contained in the
+            graph. */
+            for ( N childNode : nodesAndEdges_.get(node))
+            {
+                assert nodesAndEdges_.containsKey(childNode) : "Error: The " +
+                        "node " + node + " is connected by an edge" +
+                        " to the node " + childNode + " which does not exist " +
+                        "in the graph.";
+            }
+        }
     }
 
 }
