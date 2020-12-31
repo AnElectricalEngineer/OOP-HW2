@@ -1,8 +1,8 @@
 package homework2;
 
-
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A Graph is an immutable model which represents a set of points and the
@@ -25,53 +25,153 @@ import java.util.List;
 
 public class Graph<N>
 {
-    private final List<N> nodeList_;
-    private String graphName_;
-    //TODO decide how to store nodes (use generic list?)
+
+    //	//TODO Abstraction Function:
+    //	A GeoFeature is a geographical feature composed of a positive number of
+    //	connected GeoSegments with the same name. The feature begins at
+    //	GeoFeature.getFirst().getP1() (the first point of the first segment in
+    //	the feature). The feature ends at GeoFeature.getLast().getP2() (the
+    //  second point of the last segment in the feature).
+
+    //	//TODO Representation Invariant:
+    //	For every GeoFeature f, f.name_ != null && 0 <= f.startHeading_ < 360
+    //	&& 0 <= f.endHeading_ < 360 && for all GeoSegments s_i,
+    //	s_i.endPoint == s_i+1.startPoint && for all GeoSegments s
+    //	in a GeoFeature f,	it must hold that s.name_ == f.name_.
+
+
+    private final Map<N, Set<N>> nodesAndEdges_;
+    private final String graphName_;
 
     /**
      * Constructs a new Graph.
      * @requires graphName != null
      * @modifies this
-     * @effects Constructs a new empty Graph such that Graph.graphName =
+     * @effects Constructs a new empty Graph such that Graph.graphName_ =
      * graphName.
      **/
     public Graph(String graphName)
     {
-        nodeList_ = new LinkedList<>();
+        nodesAndEdges_ = new HashMap<>();
         graphName_ = graphName;
+        checkRep();
     }
 
-    /*public <N, C> CreateNode(N nodeName, C cost)
-    {}*/
+    /**
+     * Returns the name of the graph.
+     * @requires none
+     * @modifies none
+     * @effects returns the name of the graph.
+     **/
+    public String getName()
+    {
+        checkRep();
+        return graphName_;
+    }
 
+    //TODO Maybe add throws like tal
     /**
      * Adds a node to the Graph.
-     * @requires node != null
+     * @requires node != null && Graph does not already contain node (or any
+     * node with same hashCode).
      * @modifies this
      * @effects adds node to the Graph.
      **/
     public void AddNode(N node)
-    {}
+    {
+        checkRep();
+        checkRep();
+    }
 
+    //TODO Maybe add throws like tal
     /**
      * Adds an edge to the Graph.
      * @requires parentNode != null && childNode != null && Graph contains
-     * parentNode && Graph contains childNode
+     * parentNode && Graph contains childNode && Graph does not already
+     * contain same edge.
      * @modifies this
      * @effects adds an edge to the Graph which connects parentNode to
      * childNode.
      **/
     public void AddEdge(N parentNode, N childNode)
-    {}
+    {
+        checkRep();
+        checkRep();
+    }
 
-    public ListNodes()
-    {}
+    //TODO check if should be void and just print or should return set like Tal
+    /**
+     * Prints a list of the nodes contained in Graph.
+     * @requires none
+     * @modifies none
+     * @effects Prints the name of the graph followed by the names of all the
+     * nodes contained in Graph in alphabetical order.
+     **/
+    public void ListNodes()
+    {
+        checkRep();
+        checkRep();
+    }
 
-    public ListChildren()
-    {}
+    //TODO check if should be void and just print or should return set like Tal
+    /**
+     * Prints a list of the nodes contained in Graph that are children of
+     * parentNode.
+     * @requires parentNode != null && parentNode is contained in Graph.
+     * @modifies none
+     * @effects Prints the name of parentNode and the name of the graph,
+     * followed by the names of the child nodes of parentNode in alphabetical
+     * order.
+     **/
+    public void ListChildren(N parentNode)
+    {
+        checkRep();
+        checkRep();
+    }
 
-    public FindPath()
-    {}
-    //TODO maybe add hashcode(), toString(), and equals().
+    //TODO check if need to implement
+    /**
+     * Returns a hash code for this.
+     * @return a hash code for this.
+     **/
+    @Override
+    public int hashCode()
+    {
+        checkRep();
+        checkRep();
+    }
+
+    //TODO check if need to implement
+    /**
+     * Returns a string representation of this.
+     * @return a string representation of this.
+     **/
+    @Override
+    public String toString()
+    {
+        checkRep();
+        checkRep();
+    }
+
+    //TODO check if need to implement
+    /**
+     * Compares the argument with this GeoFeature for equality.
+     * @return o != null && (o instanceof GeoFeature) &&
+     *         (o.geoSegments and this.geoSegments contain
+     *          the same elements in the same order).
+     **/
+    @Override
+    public boolean equals(Object o)
+    {
+        checkRep();
+        checkRep();
+    }
+
+    /**
+     * Checks that the representation invariant is maintained.
+     */
+    private void checkRep()
+    {
+    }
+
 }
