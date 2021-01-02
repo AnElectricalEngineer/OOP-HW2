@@ -1,16 +1,14 @@
 package homework2;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import homework2.GraphExceptions.*;
 
 /**
- * A Graph is an immutable model which represents a set of points and the
+ * A Graph is a mutable model which represents a set of points and the
  * connections between them. A Graph contains a number of nodes {V}, some of
  * which may be connected by edges {E}. Each edge e = (v1,v2) has a direction,
  * which means that the edge (v1,v2) is different from the edge (v2, v1).
- * //TODO ensure that Graph is immutable and explain why in external doc.
  * A Graph cannot have more than one edge which connects a specific node to
  * another.
  *
@@ -22,12 +20,11 @@ import java.util.Set;
  * that e = (u, v).
  */
 
-public class Graph<N>
+public class Graph<N extends Comparable<N>>
 {
 
     //	Abstraction Function:
-    //  TODO check immutable
-    //  A Graph is an immutable model which represents a set of points and the
+    //  A Graph is a mutable model which represents a set of points and the
     //  connections between them. A Graph has a name represented by
     //  graphName_, and contains a number of nodes held as keys in
     //  nodesAndEdges_. The edges that connect parent nodes to child nodes are
@@ -48,7 +45,7 @@ public class Graph<N>
      * Constructs a new Graph.
      * @requires graphName != null
      * @modifies this
-     * @effects Constructs a new empty Graph such that Graph.graphName_ =
+     * @effects Constructs a new, empty Graph such that Graph.graphName_ =
      * graphName.
      **/
     public Graph(String graphName)
@@ -70,76 +67,112 @@ public class Graph<N>
         return graphName_;
     }
 
-    //TODO Maybe add throws like tal
     /**
      * Adds a node to the Graph.
-     * @requires node != null && Graph does not already contain node (or any
-     * node with same hashCode).
+     * @requires node != null
      * @modifies this
      * @effects adds node to the Graph.
+     * @throws GraphExceptions.NodeAlreadyExistsException if Graph already
+     * contains node (or any node with same hash code).
      **/
-    public void AddNode(N node)
+    public void AddNode(N node) throws NodeAlreadyExistsException
     {
         checkRep();
+
+        //  Check precondition
+        assert node != null;
+        //TODO write that we assumed Nodes are immutable
         if(nodesAndEdges_.containsKey(node))
         {
-            //TODO throw exception
+            System.out.println("Node already exists in graph.");
+            throw new NodeAlreadyExistsException();
         }
         nodesAndEdges_.put(node, new HashSet<>());
         checkRep();
     }
 
-    //TODO Maybe add throws like tal
     /**
      * Adds an edge to the Graph.
-     * @requires parentNode != null && childNode != null && Graph contains
-     * parentNode && Graph contains childNode && Graph does not already
-     * contain same edge.
+     * @requires parentNode != null && childNode != null
      * @modifies this
      * @effects adds an edge to the Graph which connects parentNode to
      * childNode.
+     * @throws NodeDoesNotExistException if Graph does not contain parentNode
+     * or childNode.
+     * @throws EdgeAlreadyExistsException if Graph already contains the edge
+     * connecting parentNode to childNode.
      **/
-    public void AddEdge(N parentNode, N childNode)
+    public void AddEdge(N parentNode, N childNode) throws
+            NodeDoesNotExistException, EdgeAlreadyExistsException
     {
         checkRep();
+
+        //  Check preconditions
+        assert parentNode != null : "Parent Node is null.";
+        assert childNode != null : "Child Node is null.";
+
+        //  Check if both parent and child nodes exist in graph
         if(!nodesAndEdges_.containsKey(parentNode) ||
                 !(nodesAndEdges_.containsKey(childNode)))
         {
-            //TODO throw exception, dont need edgealreadyexists like tal
-            // because use of hashset for children (edge) takes care of this.
+            System.out.println("Cannot add edge because one or both of the " +
+                    "nodes does not exist.");
+            throw new NodeDoesNotExistException();
         }
+
+        //  Check if edge already exists in graph
+        if(nodesAndEdges_.get(parentNode).contains(childNode))
+        {
+            System.out.println("Edge Already exists in graph.");
+            throw new EdgeAlreadyExistsException();
+        }
+
+        //  Add the edge
         nodesAndEdges_.get(parentNode).add(childNode);
         checkRep();
     }
 
-    //TODO check if should be void and just print or should return set like Tal
     /**
-     * Prints a list of the nodes contained in Graph.
+     * Returns a Set containing all of the nodes in Graph.
      * @requires none
      * @modifies none
-     * @effects Prints the name of the graph followed by the names of all the
-     * nodes contained in Graph in alphabetical order.
+     * @effects Returns a Set containing all of the nodes in Graph in
+     * sorted order.
      **/
-    public void ListNodes()
+    public Set<N> getNodes()
     {
         checkRep();
+        Set<N> nodes = new TreeSet<>(nodesAndEdges_.keySet());
         checkRep();
+        return nodes;   //Nodes are assumed to be immutable so no rep. exposure.
     }
 
-    //TODO check if should be void and just print or should return set like Tal
     /**
-     * Prints a list of the nodes contained in Graph that are children of
-     * parentNode.
-     * @requires parentNode != null && parentNode is contained in Graph.
+     * Returns a Set containing all of the nodes in Graph which are children
+     * of parentNode in a sorted order.
+     * @requires parentNode != null
      * @modifies none
-     * @effects Prints the name of parentNode and the name of the graph,
-     * followed by the names of the child nodes of parentNode in alphabetical
-     * order.
+     * @effects Returns a Set containing all of the nodes in Graph which are
+     * children of parentNode.
+     * @throws NodeDoesNotExistException if Graph does not contain parentNode.
      **/
-    public void ListChildren(N parentNode)
+    public Set<N> getChildNodes(N parentNode) throws NodeDoesNotExistException
     {
         checkRep();
+
+        //  Check precondition
+        assert parentNode != null : "Null node.";
+
+        if(!nodesAndEdges_.containsKey(parentNode))
+        {
+            throw new NodeDoesNotExistException();
+        }
+
+        Set<N> childNodes = new TreeSet<>(nodesAndEdges_.get(parentNode));
         checkRep();
+
+        //Nodes are assumed to be immutable so no rep. exposure.
+        return childNodes;
     }
 
     //TODO check if need to implement
@@ -147,24 +180,24 @@ public class Graph<N>
      * Returns a hash code for this.
      * @return a hash code for this.
      **/
-    @Override
+/*    @Override
     public int hashCode()
     {
         checkRep();
         checkRep();
-    }
+    }*/
 
     //TODO check if need to implement
     /**
      * Returns a string representation of this.
      * @return a string representation of this.
      **/
-    @Override
+    /*@Override
     public String toString()
     {
         checkRep();
         checkRep();
-    }
+    }*/
 
     //TODO check if need to implement
     /**
@@ -174,12 +207,12 @@ public class Graph<N>
      * (o.nodesAndEdges_ and this.nodesAndEdges_ contain
      * the same nodes with the same edges).
      **/
-    @Override
+    /*@Override
     public boolean equals(Object o)
     {
         checkRep();
         checkRep();
-    }
+    }*/
 
     /**
      * Checks that the representation invariant is maintained. The
