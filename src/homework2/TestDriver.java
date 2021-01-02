@@ -110,6 +110,7 @@ public class TestDriver {
   	private void createGraph(String graphName) {
   		
   		//TODO: Insert your code here. - did
+		//TODO for this entire file - check if need to add spec like Tal
   		
   		graphs.put(graphName, new Graph<WeightedNode>(graphName));
   		output.println("created graph " + graphName);
@@ -194,7 +195,7 @@ public class TestDriver {
 		try
 		{
 			graph.AddEdge(parentNode, childNode);
-			output.println("added edge from " + parentNode );
+			output.println("added edge from " + parentName + " to " + childName + " in " + graphName);
 		}
 		catch (NodeDoesNotExistException n)
 		{
@@ -236,7 +237,7 @@ public class TestDriver {
   		StringBuffer nodesNames = new StringBuffer(initialString);
   		for(WeightedNode node : nodes)
 		{
-			nodesNames.append(" ").append(node);
+			nodesNames.append(" ").append(node.getName());
 		}
   		output.println(nodesNames.toString());
   	}
@@ -272,7 +273,7 @@ public class TestDriver {
 			StringBuffer childNodesNames = new StringBuffer(initialString);
 			for(WeightedNode childNode : childNodes)
 			{
-				childNodesNames.append(" ").append(childNode);
+				childNodesNames.append(" ").append(childNode.getName());
 			}
 			output.println(childNodesNames.toString());
 		}
