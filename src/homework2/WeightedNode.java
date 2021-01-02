@@ -50,8 +50,8 @@ public class WeightedNode implements Comparable<WeightedNode> {
 	
 	/**
 	 * Standard equality operation.
-	 * @return true iff o.instaceOf(WeightedNode) &&
-	 *         (this.name.eqauls(o.name) && (this.cost == o.cost)
+	 * @return true iff o.instanceOf(WeightedNode) &&
+	 *         (this.name.equals(o.name) && (this.cost == o.cost)
 	 */
 	public boolean equals(Object o) {
     	if (o instanceof WeightedNode) {

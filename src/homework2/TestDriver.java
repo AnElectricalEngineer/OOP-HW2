@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import homework2.GraphExceptions.*;
 
 
 /**
@@ -14,8 +15,7 @@ import java.util.*;
 public class TestDriver {
 
 	// String -> Graph: maps the names of graphs to the actual graph
-	// TODO: Parameterize the next line correctly.
-  	private final Map<String,          > graphs = new HashMap<>();
+  	private final Map<String,Graph<WeightedNode>> graphs = new HashMap<>();
   	// String -> WeightedNode: maps the names of nodes to the actual node
   	private final Map<String,WeightedNode> nodes = new HashMap<>();
 	private final BufferedReader input;
@@ -109,11 +109,10 @@ public class TestDriver {
 
   	private void createGraph(String graphName) {
   		
-  		//TODO: Insert your code here.
+  		//TODO: Insert your code here. - did
   		
-  		// graphs.put(graphName, ___);
-  		// output.println(...);
-
+  		graphs.put(graphName, new Graph<WeightedNode>(graphName));
+  		output.println("created graph " + graphName);
   	}
  
   	
@@ -131,15 +130,15 @@ public class TestDriver {
 
  	private void createNode(String nodeName, String cost) {
 
- 		// TODO: Insert your code here.
+ 		// TODO: Insert your code here. - did
  		
- 		// nodes.put(nodeName, ___);
- 		// output.println(...);
- 		
+ 		nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost)));
+ 		output.println("created node " + nodeName + " with cost " + cost);
   	}
 	
 
-  	private void addNode(List<String> arguments) {
+  	private void addNode(List<String> arguments)
+	{
 
     	if (arguments.size() != 2)
       		throw new CommandException(
@@ -151,14 +150,24 @@ public class TestDriver {
   	}
 
 
-  	private void addNode(String graphName, String nodeName) {
+  	private void addNode(String graphName, String nodeName)
+	{
 
-  		// TODO: Insert your code here.
+  		// TODO: Insert your code here. - did
   		 
-  		// ___ = graphs.get(graphName);
-  		// ___ = nodes.get(nodeName);
-  		// output.println(...);
-  		
+  		Graph<WeightedNode> graph = graphs.get(graphName);
+  		WeightedNode node = nodes.get(nodeName);
+  		try
+		{
+			graph.AddNode(node);
+			output.println("added node " + nodeName + " to " + graphName);
+		}
+  		catch (NodeAlreadyExistsException n)
+		{
+			throw new CommandException(
+					"Node: " + nodeName + " already exists in Graph: " +
+							graphName);
+		}
   	}
 
 
@@ -177,13 +186,28 @@ public class TestDriver {
 
 	private void addEdge(String graphName, String parentName, String childName) {
 		
-		// TODO: Insert your code here.
+		// TODO: Insert your code here. - did
 		  
-		// ___ = graphs.get(graphName);
-		// ___ = nodes.get(parentName);
-		// ___ = nodes.get(childName);
-		// output.println(...);
-
+		Graph<WeightedNode> graph = graphs.get(graphName);
+		WeightedNode parentNode = nodes.get(parentName);
+		WeightedNode childNode = nodes.get(childName);
+		try
+		{
+			graph.AddEdge(parentNode, childNode);
+			output.println("added edge from " + parentNode );
+		}
+		catch (NodeDoesNotExistException n)
+		{
+			throw new CommandException(
+					"Node: " + parentName + " or " + childName + " does not " +
+							"exist in " + graphName);
+		}
+		catch (EdgeAlreadyExistsException e)
+		{
+			throw new CommandException(
+					"The edge from " + parentName + " to " + childName +
+							" already exists in " + graphName);
+		}
   	}
 
 
@@ -200,11 +224,21 @@ public class TestDriver {
 
   	private void listNodes(String graphName) {
   		
-  		// TODO: Insert your code here.
+  		// TODO: Insert your code here. - did
   		   
-  		// ___ = graphs.get(graphName);
-  		// output.println(...);
+  		Graph<WeightedNode> graph = graphs.get(graphName);
 
+  		//	TODO: Check if implemented correctly - if prints in alphabetical
+		//	 order
+  		Set<WeightedNode> nodes = graph.getNodes();
+
+  		String initialString = graphName + " contains:";
+  		StringBuffer nodesNames = new StringBuffer(initialString);
+  		for(WeightedNode node : nodes)
+		{
+			nodesNames.append(" ").append(node);
+		}
+  		output.println(nodesNames.toString());
   	}
 
 
@@ -222,12 +256,31 @@ public class TestDriver {
 
   	private void listChildren(String graphName, String parentName) {
 
-  		// TODO: Insert your code here.
+  		// TODO: Insert your code here. - did
   		    
-  		// ___ = graphs.get(graphName);
-  		// ___ = nodes.get(parentName);
-  		// output.println(...);
-  		
+  		Graph<WeightedNode> graph = graphs.get(graphName);
+  		WeightedNode parentNode = nodes.get(parentName);
+
+  		try
+		{
+			//	TODO: Check if implemented correctly - if prints in alphabetical
+			//	 order
+			Set<WeightedNode> childNodes = graph.getChildNodes(parentNode);
+			String initialString =
+					"the children of " + parentName + " in " + graphName + " " +
+							"are:";
+			StringBuffer childNodesNames = new StringBuffer(initialString);
+			for(WeightedNode childNode : childNodes)
+			{
+				childNodesNames.append(" ").append(childNode);
+			}
+			output.println(childNodesNames.toString());
+		}
+  		catch (NodeDoesNotExistException n)
+		{
+			throw new CommandException(
+					parentName + " does not exist in " + graphName);
+		}
   	}
 
 
