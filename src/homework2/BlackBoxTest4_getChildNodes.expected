@@ -1,7 +1,9 @@
 # Black Box Test 4 commands
 
-# Create a graph
+# Create some graphs
 created graph G1
+created graph G2
+created graph G3
 
 # Create some nodes
 created node n1 with cost 1
@@ -9,25 +11,53 @@ created node n2 with cost 2
 created node n3 with cost 1
 created node n4 with cost 10
 created node n5 with cost 1700
+created node n6 with cost 4
+created node a with cost 1
+created node b with cost 2
+created node c with cost 1
+created node d with cost 10
+created node e with cost 1700
+created node f with cost 8
 
 # Add some nodes to graph G1
-added node n1 to G1
 added node n2 to G1
+added node n4 to G1
+added node n1 to G1
+added node n5 to G1
 added node n3 to G1
+
+# Add some nodes to graph G2
+added node b to G2
+added node a to G2
+added node d to G2
+added node c to G2
+added node e to G2
 
 # Add some edges
 added edge from n1 to n2 in G1
 added edge from n2 to n3 in G1
 added edge from n3 to n1 in G1
 added edge from n2 to n1 in G1
+added edge from n1 to n3 in G1
+added edge from n1 to n1 in G1
+added edge from n1 to n4 in G1
+added edge from n1 to n5 in G1
+added edge from a to a in G2
+added edge from a to b in G2
+added edge from c to d in G2
 
-# Try to add same edge
-Edge Already exists in graph.
+# List the cildren
+the children of n1 in G1 are: n1 n2 n3 n4 n5
+the children of n2 in G1 are: n1 n3
+the children of n3 in G1 are: n1
+the children of n4 in G1 are:
+the children of n5 in G1 are:
+the children of a in G2 are: a b
+the children of b in G2 are:
+the children of c in G2 are: d
+the children of d in G2 are:
+the children of e in G2 are:
 
-# Try to add edge to/from nodes that don't exist in G1
-Cannot add edge because one or both of the nodes do not exist.
-Cannot add edge because one or both of the nodes do not exist.
-Cannot add edge because one or both of the nodes do not exist.
-
-# Add another edge
-added edge from n3 to n2 in G1
+# List children of nodes that do not exist in graphs
+Node does not exist in graph.
+Node does not exist in graph.

@@ -1,7 +1,9 @@
 # Black Box Test 4 commands
 
-# Create a graph
+# Create some graphs
 CreateGraph G1
+CreateGraph G2
+CreateGraph G3
 
 # Create some nodes
 CreateNode n1 1
@@ -9,25 +11,53 @@ CreateNode n2 2
 CreateNode n3 1
 CreateNode n4 10
 CreateNode n5 1700
+CreateNode n6 4
+CreateNode a 1
+CreateNode b 2
+CreateNode c 1
+CreateNode d 10
+CreateNode e 1700
+CreateNode f 8
 
 # Add some nodes to graph G1
-AddNode G1 n1
 AddNode G1 n2
+AddNode G1 n4
+AddNode G1 n1
+AddNode G1 n5
 AddNode G1 n3
+
+# Add some nodes to graph G2
+AddNode G2 b
+AddNode G2 a
+AddNode G2 d
+AddNode G2 c
+AddNode G2 e
 
 # Add some edges
 AddEdge G1 n1 n2
 AddEdge G1 n2 n3
 AddEdge G1 n3 n1
 AddEdge G1 n2 n1
-
-# Try to add same edge
-AddEdge G1 n1 n2
-
-# Try to add edge to/from nodes that don't exist in G1
+AddEdge G1 n1 n3
+AddEdge G1 n1 n1
 AddEdge G1 n1 n4
-AddEdge G1 n5 n2
-AddEdge G1 n4 n5
+AddEdge G1 n1 n5
+AddEdge G2 a a
+AddEdge G2 a b
+AddEdge G2 c d
 
-# Add another edge
-AddEdge G1 n3 n2
+# List the cildren
+ListChildren G1 n1
+ListChildren G1 n2
+ListChildren G1 n3
+ListChildren G1 n4
+ListChildren G1 n5
+ListChildren G2 a
+ListChildren G2 b
+ListChildren G2 c
+ListChildren G2 d
+ListChildren G2 e
+
+# List children of nodes that do not exist in graphs
+ListChildren G1 n6
+ListChildren G2 f
