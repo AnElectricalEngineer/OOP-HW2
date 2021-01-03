@@ -196,6 +196,7 @@ public class TestDriver {
 		}
   		catch (NodeAlreadyExistsException n)
 		{
+			System.err.println(n.getErrorDescription());
 			n.printStackTrace();
 			System.exit(1);	// failure
 		}
@@ -239,9 +240,16 @@ public class TestDriver {
 			output.println("added edge from " + parentName + " to " + childName
 					+ " in " + graphName);
 		}
-		catch (NodeDoesNotExistException | EdgeAlreadyExistsException n)
+		catch (NodeDoesNotExistException n)
 		{
+			System.err.println(n.getErrorDescription());
 			n.printStackTrace();
+			System.exit(1);	// failure
+		}
+		catch (EdgeAlreadyExistsException e)
+		{
+			System.err.println(e.getErrorDescription());
+			e.printStackTrace();
 			System.exit(1);	// failure
 		}
 	}
@@ -335,9 +343,11 @@ public class TestDriver {
 			}
 			output.println(childNodesNames.toString());
 		}
-  		catch (NodeDoesNotExistException n)
+		catch (NodeDoesNotExistException n)
 		{
-			output.println(parentName + " does not exist in " + graphName);
+			System.err.println(n.getErrorDescription());
+			n.printStackTrace();
+			System.exit(1);	// failure
 		}
   	}
 
