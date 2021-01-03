@@ -68,7 +68,8 @@ public class Graph<N extends Comparable<N>>
     }
 
     /**
-     * Adds a node to the Graph.
+     * Adds a node to the Graph. Nodes are assumed to be immutable and
+     * therefore it is unnecessary to copy them in.
      * @requires node != null
      * @modifies this
      * @effects adds node to the Graph.
@@ -81,7 +82,6 @@ public class Graph<N extends Comparable<N>>
 
         //  Check precondition
         assert node != null;
-        //TODO write that we assumed Nodes are immutable
         if(nodesAndEdges_.containsKey(node))
         {
             throw new NodeAlreadyExistsException("Node already exists in graph.");
