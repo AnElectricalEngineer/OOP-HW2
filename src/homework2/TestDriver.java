@@ -95,7 +95,13 @@ public class TestDriver {
     	}
   	}
 
-
+	/**
+	 * A wrapper function for createGraph().
+	 * @requires arguments != null
+	 * @effects Wrapper function - creates a new graph.
+	 * @throws CommandException if the list of arguments passed contains no
+	 * arguments or more than 1 argument.
+	 */
 	private void createGraph(List<String> arguments) {
 
     	if (arguments.size() != 1)
@@ -106,17 +112,26 @@ public class TestDriver {
     	createGraph(graphName);
   	}
 
-
+	/**
+	 * Creates a new graph.
+	 * @requires graphName != null
+	 * @modifies graphs - adds a new graph to graphs.
+	 * @effects Creates a new graph with the name graphName, adds it to
+	 * graphs, and outputs the result of the operation.
+	 */
   	private void createGraph(String graphName) {
-  		
-  		//TODO: Insert your code here. - did
-		//TODO for this entire file - check if need to add spec like Tal
-  		
+
   		graphs.put(graphName, new Graph<WeightedNode>(graphName));
   		output.println("created graph " + graphName);
   	}
- 
-  	
+
+	/**
+	 * A wrapper function for createNode().
+	 * @requires arguments != null
+	 * @effects Wrapper function - creates a new node.
+	 * @throws CommandException if arguments does not contain exactly 2
+	 * arguments.
+	 */
   	private void createNode(List<String> arguments) {
 
     	if (arguments.size() != 2)
@@ -128,16 +143,27 @@ public class TestDriver {
     	createNode(nodeName, cost);
   	}
 
-
+	/**
+	 * Creates a new node with the name nodeName and the cost cost, adds it to
+	 * nodes, and outputs the result of the operation.
+	 * @requires nodeName != null && cost != null
+	 * @modifies nodes - adds the new node to nodes.
+	 * @effects Creates a new node with the name nodeName and the cost cost,
+	 * adds it to nodes, and outputs the result of the operation.
+	 */
  	private void createNode(String nodeName, String cost) {
-
- 		// TODO: Insert your code here. - did
  		
  		nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost)));
  		output.println("created node " + nodeName + " with cost " + cost);
   	}
-	
 
+	/**
+	 * A wrapper function for addNode().
+	 * @requires arguments != null
+	 * @effects Wrapper function - adds a new node.
+	 * @throws CommandException if arguments does not contain exactly 2
+	 * arguments.
+	 */
   	private void addNode(List<String> arguments)
 	{
 
@@ -150,11 +176,18 @@ public class TestDriver {
     	addNode(graphName, nodeName);
   	}
 
-
+	/**
+	 * Adds the node with the name nodeName to the graph graphName and outputs
+	 * the result of the operation.
+	 * @requires graphName != null && nodeName != null
+	 * @modifies graph - adds the node to graphs.
+	 * @effects Adds the node with the name nodeName to the graph graphName
+	 * and outputs the result of the operation.
+	 * @throws CommandException if the node nodeName already exists in the
+	 * graph graphName.
+	 */
   	private void addNode(String graphName, String nodeName)
 	{
-
-  		// TODO: Insert your code here. - did
   		 
   		Graph<WeightedNode> graph = graphs.get(graphName);
   		WeightedNode node = nodes.get(nodeName);
@@ -171,7 +204,13 @@ public class TestDriver {
 		}
   	}
 
-
+	/**
+	 * A wrapper function for addEdge().
+	 * @requires arguments != null
+	 * @effects Wrapper function - adds a new edge.
+	 * @throws CommandException if arguments does not contain exactly 3
+	 * arguments.
+	 */
   	private void addEdge(List<String> arguments) {
 
     	if (arguments.size() != 3)
@@ -184,10 +223,18 @@ public class TestDriver {
     	addEdge(graphName, parentName, childName);
   	}
 
-
+	/**
+	 * Adds the edge beginning at node parentName and ending at node childName
+	 * to the graph graphName and outputs the result of the operation.
+	 * @requires graphName != null && parentName != null && childName != null
+	 * @modifies graph - adds the edge to graphs.
+	 * @effects Adds the edge beginning at node parentName and ending at node
+	 * childName to the graph graphName and outputs the result of the operation.
+	 * @throws CommandException if the nodes parentName or childName or both do
+	 * not exist in the graph graphName or if the edge from node parentName
+	 * to node childName already exists in the graph graphName.
+	 */
 	private void addEdge(String graphName, String parentName, String childName) {
-		
-		// TODO: Insert your code here. - did
 		  
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		WeightedNode parentNode = nodes.get(parentName);
@@ -211,7 +258,13 @@ public class TestDriver {
 		}
   	}
 
-
+	/**
+	 * A wrapper function for listNodes().
+	 * @requires arguments != null
+	 * @effects Wrapper function - lists all the nodes.
+	 * @throws CommandException if arguments does not contain exactly 1
+	 * argument.
+	 */
   	private void listNodes(List<String> arguments) {
 
     	if (arguments.size() != 1)
@@ -222,10 +275,14 @@ public class TestDriver {
     	listNodes(graphName);
   	}
 
-
+	/**
+	 * Prints out a list of all the nodes contained in the graph graphName.
+	 * @requires graphName != null
+	 * @modifies none
+	 * @effects Prints out a list of all the nodes contained in the graph
+	 * graphName in alphabetical order.
+	 */
   	private void listNodes(String graphName) {
-  		
-  		// TODO: Insert your code here. - did
   		   
   		Graph<WeightedNode> graph = graphs.get(graphName);
 
@@ -243,7 +300,13 @@ public class TestDriver {
   		output.println(nodesNames.toString());
   	}
 
-
+	/**
+	 * A wrapper function for listChildren().
+	 * @requires arguments != null
+	 * @effects Wrapper function - lists all the child nodes of a given node.
+	 * @throws CommandException if arguments does not contain exactly 2
+	 * arguments.
+	 */
   	private void listChildren(List<String> arguments) {
 
     	if (arguments.size() != 2)
@@ -255,10 +318,15 @@ public class TestDriver {
     	listChildren(graphName, parentName);
   	}
 
-
+	/**
+	 * Prints out a list of all the nodes that are children of the node
+	 * parentName contained in the graph graphName.
+	 * @requires graphName != null && parentName != null
+	 * @modifies none
+	 * @effects Prints out a list of all the nodes that are children of the
+	 * node parentName contained in the graph graphName in alphabetical order.
+	 */
   	private void listChildren(String graphName, String parentName) {
-
-  		// TODO: Insert your code here. - did
   		    
   		Graph<WeightedNode> graph = graphs.get(graphName);
   		WeightedNode parentNode = nodes.get(parentName);
@@ -286,7 +354,7 @@ public class TestDriver {
 		}
   	}
 
-
+	//TODO add spec
   	private void findPath(List<String> arguments) {
 
     	String graphName;
@@ -336,7 +404,7 @@ public class TestDriver {
 		
   	}
 
-
+	//TODO add spec
 	private static void printUsage() {
 		System.err.println("Usage:");
 		System.err.println("to read from a file: java TestDriver <name of input script>");

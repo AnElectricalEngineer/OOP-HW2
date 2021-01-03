@@ -98,7 +98,7 @@ public class Graph<N extends Comparable<N>>
      * @effects adds an edge to the Graph which connects parentNode to
      * childNode.
      * @throws NodeDoesNotExistException if Graph does not contain parentNode
-     * or childNode.
+     * or childNode or both.
      * @throws EdgeAlreadyExistsException if Graph already contains the edge
      * connecting parentNode to childNode.
      **/
