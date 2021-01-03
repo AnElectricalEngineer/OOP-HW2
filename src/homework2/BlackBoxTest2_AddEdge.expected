@@ -1,0 +1,33 @@
+# Black Box Test 2 commands
+
+# Create a graph
+created graph G1
+
+# Create some nodes
+created node n1 with cost 1
+created node n2 with cost 2
+created node n3 with cost 1
+created node n4 with cost 10
+created node n5 with cost 1700
+
+# Add some nodes to graph G1
+added node n1 to G1
+added node n2 to G1
+added node n3 to G1
+
+# Add some edges
+added edge from n1 to n2 in G1
+added edge from n2 to n3 in G1
+added edge from n3 to n1 in G1
+added edge from n2 to n1 in G1
+
+# Try to add same edge
+Edge Already exists in graph.
+
+# Try to add edge to/from nodes that don't exist in G1
+Cannot add edge because one or both of the nodes do not exist.
+Cannot add edge because one or both of the nodes do not exist.
+Cannot add edge because one or both of the nodes do not exist.
+
+# Add another edge
+added edge from n3 to n2 in G1

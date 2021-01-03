@@ -1,0 +1,26 @@
+# Black Box Test 1 commands
+
+# Create some graphs
+CreateGraph G1
+CreateGraph G2
+CreateGraph g
+CreateGraph 1
+
+# Create some nodes
+CreateNode n1 1
+CreateNode n2 2
+CreateNode n3 1
+
+# Add some nodes to graph G1
+AddNode G1 n1
+AddNode G1 n2
+
+# Try to add the node n1 to graph G1
+AddNode G1 n1
+
+# Add the node n3 to graph G1
+AddNode G1 n3
+
+# Add some nodes to graph 1
+AddNode 1 n1
+AddNode 1 n2

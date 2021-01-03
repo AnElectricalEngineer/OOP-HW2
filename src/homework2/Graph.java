@@ -72,7 +72,7 @@ public class Graph<N extends Comparable<N>>
      * @requires node != null
      * @modifies this
      * @effects adds node to the Graph.
-     * @throws GraphExceptions.NodeAlreadyExistsException if Graph already
+     * @throws NodeAlreadyExistsException if Graph already
      * contains node (or any node with same hash code).
      **/
     public void AddNode(N node) throws NodeAlreadyExistsException

@@ -196,9 +196,7 @@ public class TestDriver {
 		}
   		catch (NodeAlreadyExistsException n)
 		{
-			System.err.println(n.getErrorDescription());
-			n.printStackTrace();
-			System.exit(1);	// failure
+			output.println(n.getErrorDescription());
 		}
   	}
 
@@ -242,15 +240,11 @@ public class TestDriver {
 		}
 		catch (NodeDoesNotExistException n)
 		{
-			System.err.println(n.getErrorDescription());
-			n.printStackTrace();
-			System.exit(1);	// failure
+			output.println(n.getErrorDescription());
 		}
 		catch (EdgeAlreadyExistsException e)
 		{
-			System.err.println(e.getErrorDescription());
-			e.printStackTrace();
-			System.exit(1);	// failure
+			output.println(e.getErrorDescription());
 		}
 	}
 
@@ -345,9 +339,7 @@ public class TestDriver {
 		}
 		catch (NodeDoesNotExistException n)
 		{
-			System.err.println(n.getErrorDescription());
-			n.printStackTrace();
-			System.exit(1);	// failure
+			output.println(n.getErrorDescription());
 		}
   	}
 

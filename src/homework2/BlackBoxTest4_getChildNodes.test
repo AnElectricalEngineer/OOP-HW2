@@ -1,0 +1,33 @@
+# Black Box Test 4 commands
+
+# Create a graph
+CreateGraph G1
+
+# Create some nodes
+CreateNode n1 1
+CreateNode n2 2
+CreateNode n3 1
+CreateNode n4 10
+CreateNode n5 1700
+
+# Add some nodes to graph G1
+AddNode G1 n1
+AddNode G1 n2
+AddNode G1 n3
+
+# Add some edges
+AddEdge G1 n1 n2
+AddEdge G1 n2 n3
+AddEdge G1 n3 n1
+AddEdge G1 n2 n1
+
+# Try to add same edge
+AddEdge G1 n1 n2
+
+# Try to add edge to/from nodes that don't exist in G1
+AddEdge G1 n1 n4
+AddEdge G1 n5 n2
+AddEdge G1 n4 n5
+
+# Add another edge
+AddEdge G1 n3 n2
