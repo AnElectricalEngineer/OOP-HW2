@@ -276,9 +276,8 @@ public class TestDriver {
   		   
   		Graph<WeightedNode> graph = graphs.get(graphName);
 
-  		//	TODO: Check if implemented correctly - if prints in alphabetical
-		//	order. I think it should work because getNodes() returns a
-		//	TreeSet<>, and so the nodes should already be ordered.
+  		//	Prints in alphabetical order because getNodes() returns a
+		//	TreeSet<>, and so the nodes are already ordered.
   		Set<WeightedNode> nodes = graph.getNodes();
 
   		String initialString = graphName + " contains:";
@@ -323,9 +322,8 @@ public class TestDriver {
 
   		try
 		{
-			//	TODO: Check if implemented correctly - if prints in alphabetical
-			//	order. I think it should work because getNodes() returns a
-			//	TreeSet<>, and so the nodes should already be ordered.
+			//	Prints in alphabetical order because getChildNodes() returns a
+			//	TreeSet<>, and so the nodes are already ordered.
 			Set<WeightedNode> childNodes = graph.getChildNodes(parentNode);
 			String initialString =
 					"the children of " + parentName + " in " + graphName + " " +
