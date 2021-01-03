@@ -183,8 +183,6 @@ public class TestDriver {
 	 * @modifies graph - adds the node to graphs.
 	 * @effects Adds the node with the name nodeName to the graph graphName
 	 * and outputs the result of the operation.
-	 * @throws CommandException if the node nodeName already exists in the
-	 * graph graphName.
 	 */
   	private void addNode(String graphName, String nodeName)
 	{
@@ -198,9 +196,8 @@ public class TestDriver {
 		}
   		catch (NodeAlreadyExistsException n)
 		{
-			throw new CommandException(
-					"Node: " + nodeName + " already exists in Graph: " +
-							graphName);
+			n.printStackTrace();
+			System.exit(1);	// failure
 		}
   	}
 
@@ -230,9 +227,6 @@ public class TestDriver {
 	 * @modifies graph - adds the edge to graphs.
 	 * @effects Adds the edge beginning at node parentName and ending at node
 	 * childName to the graph graphName and outputs the result of the operation.
-	 * @throws CommandException if the nodes parentName or childName or both do
-	 * not exist in the graph graphName or if the edge from node parentName
-	 * to node childName already exists in the graph graphName.
 	 */
 	private void addEdge(String graphName, String parentName, String childName) {
 		  
@@ -242,21 +236,15 @@ public class TestDriver {
 		try
 		{
 			graph.AddEdge(parentNode, childNode);
-			output.println("added edge from " + parentName + " to " + childName + " in " + graphName);
+			output.println("added edge from " + parentName + " to " + childName
+					+ " in " + graphName);
 		}
-		catch (NodeDoesNotExistException n)
+		catch (NodeDoesNotExistException | EdgeAlreadyExistsException n)
 		{
-			throw new CommandException(
-					"Node: " + parentName + " or " + childName + " does not " +
-							"exist in " + graphName);
+			n.printStackTrace();
+			System.exit(1);	// failure
 		}
-		catch (EdgeAlreadyExistsException e)
-		{
-			throw new CommandException(
-					"The edge from " + parentName + " to " + childName +
-							" already exists in " + graphName);
-		}
-  	}
+	}
 
 	/**
 	 * A wrapper function for listNodes().
@@ -349,8 +337,7 @@ public class TestDriver {
 		}
   		catch (NodeDoesNotExistException n)
 		{
-			throw new CommandException(
-					parentName + " does not exist in " + graphName);
+			output.println(parentName + " does not exist in " + graphName);
 		}
   	}
 

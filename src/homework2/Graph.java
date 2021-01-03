@@ -84,8 +84,7 @@ public class Graph<N extends Comparable<N>>
         //TODO write that we assumed Nodes are immutable
         if(nodesAndEdges_.containsKey(node))
         {
-            System.out.println("Node already exists in graph.");
-            throw new NodeAlreadyExistsException();
+            throw new NodeAlreadyExistsException("Node already exists in graph.");
         }
         nodesAndEdges_.put(node, new HashSet<>());
         checkRep();
@@ -115,16 +114,14 @@ public class Graph<N extends Comparable<N>>
         if(!nodesAndEdges_.containsKey(parentNode) ||
                 !(nodesAndEdges_.containsKey(childNode)))
         {
-            System.out.println("Cannot add edge because one or both of the " +
-                    "nodes does not exist.");
-            throw new NodeDoesNotExistException();
+            throw new NodeDoesNotExistException("Cannot add edge because one " +
+                    "or both of the nodes do not exist.");
         }
 
         //  Check if edge already exists in graph
         if(nodesAndEdges_.get(parentNode).contains(childNode))
         {
-            System.out.println("Edge Already exists in graph.");
-            throw new EdgeAlreadyExistsException();
+            throw new EdgeAlreadyExistsException("Edge Already exists in graph.");
         }
 
         //  Add the edge
@@ -165,7 +162,8 @@ public class Graph<N extends Comparable<N>>
 
         if(!nodesAndEdges_.containsKey(parentNode))
         {
-            throw new NodeDoesNotExistException();
+            throw new NodeDoesNotExistException("Node does not exist in graph" +
+                    ".");
         }
 
         Set<N> childNodes = new TreeSet<>(nodesAndEdges_.get(parentNode));
