@@ -191,7 +191,7 @@ public class TestDriver {
   		WeightedNode node = nodes.get(nodeName);
   		try
 		{
-			graph.AddNode(node);
+			graph.addNode(node);
 			output.println("added node " + nodeName + " to " + graphName);
 		}
   		catch (NodeAlreadyExistsException n)
@@ -234,7 +234,7 @@ public class TestDriver {
 		WeightedNode childNode = nodes.get(childName);
 		try
 		{
-			graph.AddEdge(parentNode, childNode);
+			graph.addEdge(parentNode, childNode);
 			output.println("added edge from " + parentName + " to " + childName
 					+ " in " + graphName);
 		}

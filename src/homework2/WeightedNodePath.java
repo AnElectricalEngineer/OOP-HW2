@@ -67,7 +67,7 @@ public class WeightedNodePath implements Path<WeightedNode, WeightedNodePath> {
 
 	/**
 	 * Creates a WeightedNodePath from a WeightedNode and
-	 * a WeigthedNodePath.
+	 * a WeightedNodePath.
      * @requires node != null
      * @effects Creates a new WeightedNodePath 'res' such that
      * 			res.elements = path.elements + [node]

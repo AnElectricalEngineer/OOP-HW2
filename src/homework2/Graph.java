@@ -20,7 +20,7 @@ import homework2.GraphExceptions.*;
  * that e = (u, v).
  */
 
-public class Graph<N extends Comparable<N>>
+public class Graph<N>
 {
 
     //	Abstraction Function:
@@ -76,7 +76,7 @@ public class Graph<N extends Comparable<N>>
      * @throws NodeAlreadyExistsException if Graph already
      * contains node (or any node with same hash code).
      **/
-    public void AddNode(N node) throws NodeAlreadyExistsException
+    public void addNode(N node) throws NodeAlreadyExistsException
     {
         checkRep();
 
@@ -101,7 +101,7 @@ public class Graph<N extends Comparable<N>>
      * @throws EdgeAlreadyExistsException if Graph already contains the edge
      * connecting parentNode to childNode.
      **/
-    public void AddEdge(N parentNode, N childNode) throws
+    public void addEdge(N parentNode, N childNode) throws
             NodeDoesNotExistException, EdgeAlreadyExistsException
     {
         checkRep();
