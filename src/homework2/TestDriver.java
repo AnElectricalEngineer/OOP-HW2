@@ -439,8 +439,8 @@ public class TestDriver {
 				{
 					pathNodeNames.append(" ").append(weightedNode.getName());
 				}
-				output.println(pathNodeNames.toString());
 			}
+			output.println(pathNodeNames.toString());
 		}
 		catch(NodeDoesNotExistException n)
 		{

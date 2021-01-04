@@ -1,0 +1,18 @@
+# Black Box Test 8 commands
+
+# Create a graph
+CreateGraph G1
+
+# Create some nodes
+CreateNode n1 1
+CreateNode n2 3
+
+# Add some nodes to graph G1
+AddNode G1 n2
+AddNode G1 n1
+
+# Add some edges
+AddEdge G1 n1 n2
+
+# Find a path
+FindPath G1 n1 -> n1

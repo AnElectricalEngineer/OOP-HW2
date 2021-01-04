@@ -47,9 +47,10 @@ import homework2.GraphExceptions.*;
 
     /**
      * Finds and returns the shortest path between any node in a group of
-     * starting nodes and any node in a group of goal nodes. The groups of
-     * starting and goal nodes must be groups of single-node paths and all
-     * nodes must be contained in this.graph.
+     * starting nodes and any node in a group of goal nodes, or null if such
+     * a path does not exist. The groups of starting and goal nodes must be
+     * groups of single-node paths and all nodes must be contained in this
+     * .graph.
      * @requires startNodes != null and goalNodes != null && startNodes
      * contains at least one node, and goal nodes contains at least one node
      * && this.graph contains all nodes in startNodes && this.graph contains
