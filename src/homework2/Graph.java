@@ -73,8 +73,8 @@ public class Graph<N>
      * @requires node != null
      * @modifies this
      * @effects adds node to the Graph.
-     * @throws NodeAlreadyExistsException if Graph already
-     * contains node (or any node with same hash code).
+     * @throws NodeAlreadyExistsException if Graph already contains node (or
+     * any node with same hash code).
      **/
     public void addNode(N node) throws NodeAlreadyExistsException
     {
@@ -172,45 +172,6 @@ public class Graph<N>
         //Nodes are assumed to be immutable so no rep. exposure.
         return childNodes;
     }
-
-    //TODO check if need to implement
-    /**
-     * Returns a hash code for this.
-     * @return a hash code for this.
-     **/
-/*    @Override
-    public int hashCode()
-    {
-        checkRep();
-        checkRep();
-    }*/
-
-    //TODO check if need to implement
-    /**
-     * Returns a string representation of this.
-     * @return a string representation of this.
-     **/
-    /*@Override
-    public String toString()
-    {
-        checkRep();
-        checkRep();
-    }*/
-
-    //TODO check if need to implement
-    /**
-     * Compares the argument with this Graph for equality.
-     * @return o != null && (o instanceof //TODO check if Graph or Graph<N>)
-     * or other &&
-     * (o.nodesAndEdges_ and this.nodesAndEdges_ contain
-     * the same nodes with the same edges).
-     **/
-    /*@Override
-    public boolean equals(Object o)
-    {
-        checkRep();
-        checkRep();
-    }*/
 
     /**
      * Checks that the representation invariant is maintained. The

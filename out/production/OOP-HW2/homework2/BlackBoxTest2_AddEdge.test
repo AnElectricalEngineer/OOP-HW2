@@ -20,6 +20,7 @@ AddEdge G1 n1 n2
 AddEdge G1 n2 n3
 AddEdge G1 n3 n1
 AddEdge G1 n2 n1
+AddEdge G1 n1 n1
 
 # Try to add same edge
 AddEdge G1 n1 n2

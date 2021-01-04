@@ -341,7 +341,14 @@ public class TestDriver {
 		}
   	}
 
-	//TODO add spec
+	/**
+	 * A wrapper function for findPath().
+	 * @requires arguments != null
+	 * @effects Wrapper function - finds the shortest path between a group of
+	 * starting nodes and a group of goal nodes.
+	 * @throws CommandException if arguments does not contain at least two
+	 * arguments.
+	 */
   	private void findPath(List<String> arguments) {
 
     	String graphName;
@@ -378,32 +385,45 @@ public class TestDriver {
     	findPath(graphName, sourceArgs, destArgs);
   	}
 
-	//TODO add spec
+	/**
+	 * Prints out a list of the nodes that comprise the shortest path from
+	 * one of the nodes listed in sourceArgs to one of the nodes listed in
+	 * destArgs, or //TODO add this - if such a path does not exist.
+	 * @requires graphName != null && sourceArgs != null && destArgs != null
+	 * @modifies none
+	 * @effects Prints out a list of the nodes that comprise the shortest path
+	 * from one of the nodes listed in sourceArgs to one of the nodes listed in
+	 * destArgs, or //TODO add this - if such a path does not exist.
+	 */
   	private void findPath(String graphName, List<String> sourceArgs,
   						  List<String> destArgs) {
-  		
-  		// TODO: Insert your code here.
   		   
   		Graph<WeightedNode> graph = graphs.get(graphName);
+
+  		// Create the set of start nodes (single-node paths)
   		Set<WeightedNodePath> startNodes = new HashSet<>();
-  		for(int i = 0; i < sourceArgs.size(); i ++)
+		for (String sourceArg : sourceArgs)
 		{
 			WeightedNodePath path =
-					new WeightedNodePath(nodes.get(sourceArgs.get(i)));
+					new WeightedNodePath(nodes.get(sourceArg));
 			startNodes.add(path);
 		}
+
+		// Create the set of goal nodes (single-node paths)
 		Set<WeightedNodePath> goalNodes = new HashSet<>();
-		for(int i = 0; i < destArgs.size(); i ++)
+		for (String destArg : destArgs)
 		{
 			WeightedNodePath path =
-					new WeightedNodePath(nodes.get(destArgs.get(i)));
+					new WeightedNodePath(nodes.get(destArg));
 			goalNodes.add(path);
 		}
 
+		// Create a new PathFinder object with the start and goal node sets
 		PathFinder<WeightedNode, WeightedNodePath> pathFinder =
 				new PathFinder<WeightedNode, WeightedNodePath>(graph);
 		try
 		{
+			// Find the shortest path
 			WeightedNodePath shortestPath = pathFinder.shortestPath(startNodes,
 				goalNodes);
 			String initialString =
@@ -415,9 +435,14 @@ public class TestDriver {
 			}
 			output.println(pathNodeNames.toString());
 		}
-		catch(NodeDoesNotExistException n){}
+		catch(NodeDoesNotExistException n)
+		{
+			output.println(n.getErrorDescription());
+		}
 
+		//TODO delete once checked
 
+		// ___ = graphs.get(graphName);
   		// ___ = nodes.get(sourceArgs.get(i));
   		// ___ = nodes.get(destArgs.get(i));
   		// output.println(...);

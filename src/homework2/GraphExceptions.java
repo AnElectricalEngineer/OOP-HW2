@@ -19,6 +19,7 @@ public class GraphExceptions
 
         /**
          * @requires errorDescription != null
+         * @modifies this
          * @effects creates a new NodeAlreadyExistsException with the
          * description errorDescription.
          */
@@ -48,6 +49,7 @@ public class GraphExceptions
 
         /**
          * @requires errorDescription != null
+         * @modifies this
          * @effects creates a new NodeAlreadyExistsException with the
          * description errorDescription.
          */
@@ -78,6 +80,7 @@ public class GraphExceptions
 
         /**
          * @requires errorDescription != null
+         * @modifies this
          * @effects creates a new NodeAlreadyExistsException with the
          * description errorDescription.
          */

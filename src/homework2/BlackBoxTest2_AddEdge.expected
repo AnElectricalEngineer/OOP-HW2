@@ -20,6 +20,7 @@ added edge from n1 to n2 in G1
 added edge from n2 to n3 in G1
 added edge from n3 to n1 in G1
 added edge from n2 to n1 in G1
+added edge from n1 to n1 in G1
 
 # Try to add same edge
 Edge Already exists in graph.
