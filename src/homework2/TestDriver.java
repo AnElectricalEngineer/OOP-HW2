@@ -378,20 +378,52 @@ public class TestDriver {
     	findPath(graphName, sourceArgs, destArgs);
   	}
 
-
+	//TODO add spec
   	private void findPath(String graphName, List<String> sourceArgs,
   						  List<String> destArgs) {
   		
   		// TODO: Insert your code here.
   		   
-  		// ___ = graphs.get(graphName);
+  		Graph<WeightedNode> graph = graphs.get(graphName);
+  		Set<WeightedNodePath> startNodes = new HashSet<>();
+  		for(int i = 0; i < sourceArgs.size(); i ++)
+		{
+			WeightedNodePath path =
+					new WeightedNodePath(nodes.get(sourceArgs.get(i)));
+			startNodes.add(path);
+		}
+		Set<WeightedNodePath> goalNodes = new HashSet<>();
+		for(int i = 0; i < destArgs.size(); i ++)
+		{
+			WeightedNodePath path =
+					new WeightedNodePath(nodes.get(destArgs.get(i)));
+			goalNodes.add(path);
+		}
+
+		PathFinder<WeightedNode, WeightedNodePath> pathFinder =
+				new PathFinder<WeightedNode, WeightedNodePath>(graph);
+		try
+		{
+			WeightedNodePath shortestPath = pathFinder.shortestPath(startNodes,
+				goalNodes);
+			String initialString =
+					"shortest path in " + graphName + ":";
+			StringBuffer pathNodeNames = new StringBuffer(initialString);
+			for (WeightedNode weightedNode : shortestPath)
+			{
+				pathNodeNames.append(" ").append(weightedNode.getName());
+			}
+			output.println(pathNodeNames.toString());
+		}
+		catch(NodeDoesNotExistException n){}
+
+
   		// ___ = nodes.get(sourceArgs.get(i));
   		// ___ = nodes.get(destArgs.get(i));
   		// output.println(...);
 		
   	}
 
-	//TODO add spec
 	private static void printUsage() {
 		System.err.println("Usage:");
 		System.err.println("to read from a file: java TestDriver <name of input script>");
