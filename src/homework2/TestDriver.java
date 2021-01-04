@@ -388,12 +388,12 @@ public class TestDriver {
 	/**
 	 * Prints out a list of the nodes that comprise the shortest path from
 	 * one of the nodes listed in sourceArgs to one of the nodes listed in
-	 * destArgs, or //TODO add this - if such a path does not exist.
+	 * destArgs, or does not exist if such a path does not exist.
 	 * @requires graphName != null && sourceArgs != null && destArgs != null
 	 * @modifies none
 	 * @effects Prints out a list of the nodes that comprise the shortest path
 	 * from one of the nodes listed in sourceArgs to one of the nodes listed in
-	 * destArgs, or //TODO add this - if such a path does not exist.
+	 * destArgs, or does not exist if such a path does not exist.
 	 */
   	private void findPath(String graphName, List<String> sourceArgs,
   						  List<String> destArgs) {
@@ -429,11 +429,18 @@ public class TestDriver {
 			String initialString =
 					"shortest path in " + graphName + ":";
 			StringBuffer pathNodeNames = new StringBuffer(initialString);
-			for (WeightedNode weightedNode : shortestPath)
+			if( shortestPath == null)	// No shortest path exists
 			{
-				pathNodeNames.append(" ").append(weightedNode.getName());
+				pathNodeNames.append(" does not exist.");
 			}
-			output.println(pathNodeNames.toString());
+			else	// A shortest path does exist
+			{
+				for (WeightedNode weightedNode : shortestPath)
+				{
+					pathNodeNames.append(" ").append(weightedNode.getName());
+				}
+				output.println(pathNodeNames.toString());
+			}
 		}
 		catch(NodeDoesNotExistException n)
 		{

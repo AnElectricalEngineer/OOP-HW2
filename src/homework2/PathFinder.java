@@ -8,9 +8,8 @@ import homework2.GraphExceptions.*;
  * between nodes in a weighted, directed graph with no loops. A PathFinder
  * contains a method shortestPath() which returns the shortest path between any
  * node in a group of starting nodes and any node in a group of goal nodes, or
- * //TODO what is returned if no path?
- * if no such path exists.
- * The starting and goal nodes should be paths comprised of a single node.
+ * null if no such path exists. The starting and goal nodes should be paths
+ * comprised of a single node.
  */
 
  public class PathFinder<N, P extends Path<N, P>>
@@ -57,7 +56,8 @@ import homework2.GraphExceptions.*;
      * all nodes in goalNodes.
      * @modifies this.paths, this.active, this.finished.
      * @effects Finds and returns the shortest path between any node in a
-     * group of starting nodes and any node in a group of goal nodes.
+     * group of starting nodes and any node in a group of goal nodes, or null
+     * if such a path does not exist.
      * @throws NodeDoesNotExistException if one of the start nodes or goal
      * nodes does not exist in graph.
      */
@@ -139,9 +139,11 @@ import homework2.GraphExceptions.*;
             finished_.add(queueMin);
         }
 
+        return null;//TODO check
+
         //TODO Delete this!! and FIX!
-        Iterator<P> temp = startNodes.iterator();
-        return temp.next();
+        //Iterator<P> temp = startNodes.iterator();
+        //return temp.next();
 
     }
 }
