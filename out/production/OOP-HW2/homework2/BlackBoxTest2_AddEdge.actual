@@ -24,6 +24,7 @@ added edge from n1 to n1 in G1
 
 # Try to add same edge
 Edge Already exists in graph.
+Edge Already exists in graph.
 
 # Try to add edge to/from nodes that don't exist in G1
 Cannot add edge because one or both of the nodes do not exist.

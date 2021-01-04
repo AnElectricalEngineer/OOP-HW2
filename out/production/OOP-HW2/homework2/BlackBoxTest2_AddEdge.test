@@ -24,6 +24,7 @@ AddEdge G1 n1 n1
 
 # Try to add same edge
 AddEdge G1 n1 n2
+AddEdge G1 n1 n1
 
 # Try to add edge to/from nodes that don't exist in G1
 AddEdge G1 n1 n4
