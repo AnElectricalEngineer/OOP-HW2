@@ -1,11 +1,14 @@
 package homework2;
 
 import static org.junit.Assert.*;
+
+import junit.framework.TestResult;
 import org.junit.Test;
 import homework2.GraphExceptions.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class contains a set of test cases that can be used to test the graph
@@ -21,8 +24,19 @@ public class GraphTests extends ScriptFileTests {
 
 	// Defines white box tests for the Graph class
 
+	@Test
+	public void addNodeTest1() throws NodeAlreadyExistsException
+	{
+		Graph<WeightedNode> graph1 = new Graph<>("G1");
+		WeightedNode n1 = new WeightedNode("n1", 1);
+		graph1.addNode(n1);
+		Set<WeightedNode> expected = new TreeSet<WeightedNode>();
+		expected.add(n1);
+		assertEquals("addNode() test 1", expected, graph1.getNodes());
+	}
+
 	@Test(expected = NodeAlreadyExistsException.class)
-	public void addNodeTest() throws NodeAlreadyExistsException
+	public void addNodeTest2() throws NodeAlreadyExistsException
 	{
 		Graph<WeightedNode> graph1 = new Graph<>("G1");
 
@@ -73,6 +87,23 @@ public class GraphTests extends ScriptFileTests {
 		graph1.addNode(n2);
 		graph1.addEdge(n1, n2);
 		graph1.addEdge(n1, n2);
+	}
+
+	@Test
+	public void addEdgeTest4() throws NodeAlreadyExistsException,
+			EdgeAlreadyExistsException, NodeDoesNotExistException
+	{
+		Graph<WeightedNode> graph1 = new Graph<>("G1");
+
+		WeightedNode n1 = new WeightedNode("n1", 1);
+		WeightedNode n2 = new WeightedNode("n2", 2);
+
+		graph1.addNode(n1);
+		graph1.addNode(n2);
+		graph1.addEdge(n1, n2);
+		Set<WeightedNode> expected = new TreeSet<WeightedNode>();
+		expected.add(n2);
+		assertEquals("addEdge() test 4", expected, graph1.getChildNodes(n1));
 	}
 
 	@Test(expected = NodeDoesNotExistException.class)
