@@ -446,13 +446,6 @@ public class TestDriver {
 		{
 			output.println(n.getErrorDescription());
 		}
-
-		//TODO delete once checked
-
-		// ___ = graphs.get(graphName);
-  		// ___ = nodes.get(sourceArgs.get(i));
-  		// ___ = nodes.get(destArgs.get(i));
-  		// output.println(...);
 		
   	}
 

@@ -139,12 +139,6 @@ import homework2.GraphExceptions.*;
             }
             finished_.add(queueMin);
         }
-
-        return null;//TODO check
-
-        //TODO Delete this!! and FIX!
-        //Iterator<P> temp = startNodes.iterator();
-        //return temp.next();
-
+        return null;
     }
 }
